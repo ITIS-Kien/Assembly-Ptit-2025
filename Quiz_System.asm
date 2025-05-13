@@ -33,7 +33,8 @@ MI DB 10, 13, "ID  : $"
 ; Yêu cầu nhập ID
 
 INPUTMI DB 21               ; Tối đa 21 ký tự nhập
-INPUTM DB 21 DUP("$")       ; Bộ đệm lưu ID
+          DB ?              ; Sẽ lưu số ký tự người dùng nhập
+          DB 21 DUP("$")    ; Bộ đệm để lưu ID
 
 CORRECT DB 10, 13, "DAP AN DUNG! $"    
 ; Thông báo khi người dùng trả lời đúng
