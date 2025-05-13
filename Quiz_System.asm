@@ -156,7 +156,7 @@ MESSAGE2 DB 13, 10, ""
           DB 13, 10, "SO CAU TRA LOI DUNG CUA BAN LA: $"
 ; Thông báo hiển thị số câu đúng
 
-MESSAGE3 DB 13, 10, "-------------------------------------"
+MESSAGE3 DB 13, 10, ""
           DB 13, 10, "NHAN PHIM 1 DE LAM LAI HOAC 0 DE THOAT: $"
 ; Hướng dẫn chọn tiếp tục hoặc thoát
 
