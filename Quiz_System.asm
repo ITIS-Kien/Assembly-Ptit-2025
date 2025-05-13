@@ -1,4 +1,4 @@
-MODEL SMALL   ; Xác định mô hình bộ nhớ nhỏ
+.MODEL SMALL   ; Xác định mô hình bộ nhớ nhỏ
 .STACK 100H    ; Cấp phát bộ nhớ stack 256 byte
 
 .DATA          ; Khai báo vùng dữ liệu
