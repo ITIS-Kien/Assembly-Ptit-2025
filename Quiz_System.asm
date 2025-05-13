@@ -119,11 +119,11 @@ MESSAGE4 DB 13, 10, ""
          DB 13, 10, ""
          DB 13, 10, "CAC THANH VIEN GOM :    NGUYEN TU KIEN"
          DB 13, 10, ""
-         DB 13, 10, "                        TRAN THI ANH DUONG"
+         DB 13, 10, "                       TRAN THI ANH DUONG"
          DB 13, 10, ""
-         DB 13, 10, "                        VUONG QUOC HUNG"
+         DB 13, 10, "                       VUONG QUOC HUNG"
          DB 13, 10, ""
-         DB 13, 10, "                        BUI HUY HOANG$"
+         DB 13, 10, "                       BUI HUY HOANG$"
 
 .CODE          ; KHAI BÁO PHẦN CODE
 MAIN PROC      ; ĐỂM HÀM CHÍNH
