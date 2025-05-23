@@ -1,107 +1,107 @@
-Name "Tic Tac Toe" ; Đặt tên chương trình"Tic Tac Toe"
-Org 100h           ; Thiết lập vị trí bắt đầu trong bộ nhớ
-.DATA              ; Khối dữ liệu
-	MANG DB '1','2','3'  	; Khai báo mảng 2D grid
-             DB '4','5','6'
-             DB '7','8','9'
-	; Khai báo các chuỗi logo
-	T1 DB  4,  4, 4,  4,  4, 32,  4, 32,  4,  4,  4,  4, 32, 32, 32,  4,  4,  4, 4,  4, 32, 32,  4,  4, 32, 32,  4, 4,  4,  4,  32, 32, 32,   4,  4, 4,  4,  4,  32, 32,  4,   4, 32, 32, 4, 4, 4, 4, '$'
-	T2 DB 32, 32, 4, 32, 32, 32,  4, 32,  4, 32, 32, 32, 32, 32, 32, 32, 32, 4, 32, 32, 32,  4, 32, 32,  4, 32,  4, 32, 32, 32, 32, 32, 32 , 32, 32, 4, 32, 32,  32,  4, 32,  32,  4, 32, 4,'$'
-	T3 DB 32, 32, 4, 32, 32, 32,  4, 32,  4, 32, 32, 32, 32, 32, 32, 32, 32, 4, 32, 32, 32,  4,  4,  4,  4, 32,  4, 32, 32, 32, 32, 32, 32 , 32, 32, 4, 32, 32,  32,  4, 32,  32,  4, 32, 4, 4, 4, 4,'$' 
-	T4 DB 32, 32, 4, 32, 32, 32,  4, 32,  4,  4,  4,  4, 32,  4, 32, 32, 32, 4, 32, 32, 32,  4, 32, 32,  4, 32,  4,  4,  4,  4, 32,  4, 32 , 32, 32, 4, 32, 32,  32, 32,  4,   4, 32, 32, 4, 4, 4, 4,'$'
+Name "Tic Tac Toe"
+Org 100h
+.DATA   
+	MANG DB '1','2','3'  	
+         DB '4','5','6'
+         DB '7','8','9'
+    T1 DB 4, 4, 4, 4, 4, 32, 4, 32, 4, 4, 4, 4, 32, 32, 32, 4, 4, 4, 4, 4, 32, 32, 4, 4, 32, 32, 4, 4, 4, 4, 32, 32, 32, 4, 4, 4, 4, 4, 32, 32, 4, 4, 32, 32, 4, 4, 4, 4, '$'
+    T2 DB 32, 32, 4, 32, 32, 32, 4, 32, 4, 32, 32, 32, 32, 32, 32, 32, 32, 4, 32, 32, 32, 4, 32, 32, 4, 32, 4, 32, 32, 32, 32, 32, 32, 32, 32, 4, 32, 32, 32, 4, 32, 32, 4, 32, 4, '$'
+    T3 DB 32, 32, 4, 32, 32, 32, 4, 32, 4, 32, 32, 32, 32, 32, 32, 32, 32, 4, 32, 32, 32, 4, 4, 4, 4, 32, 4, 32, 32, 32, 32, 32, 32, 32, 32, 4, 32, 32, 32, 4, 32, 32, 4, 32, 4, 4, 4, 4, '$' 
+    T4 DB 32, 32, 4, 32, 32, 32, 4, 32, 4, 4, 4, 4, 32, 4, 32, 32, 32, 4, 32, 32, 32, 4, 32, 32, 4, 32, 4, 4, 4, 4, 32, 4, 32, 32, 32, 4, 32, 32, 32, 32, 4, 4, 32, 32, 4, 4, 4, 4, '$'
+    PAK DB 'Press any key to continue...$'
+	PLAYER DB ?  						
+	WELCOME DB 'Welcome to Tic Tac Toe! $'			
+	INPUT DB 'Enter Position Number, PLAYER Turn is: $' 	
+	DRAW DB 'DRAW! $' 					
+	WIN DB 'PLAYER WIN: $' 					
 
-	PLAYER DB ?  						; Khai báo biến cho người chơi
-	WELCOME DB 'Welcome to Tic Tac Toe! $'			; Thông điệp chào mừng
-	PAK DB 'Press any key to continue...$' ;
-	INPUT DB 'Enter Position Number, PLAYER Turn is: $' 	; Thông điệp nhập dữ liệu
-	DRAW DB 'DRAW! $' 					; Thông điệp hòa
-	WIN DB 'PLAYER WIN: $' 					; Thông điệp chiến thắng
-
-.CODE    ; Khối mã lệnh
-main:
-	mov cx,9    		; Lặp 9 lần vì số lượng tối đa các lượt chơi là 9
+.CODE    
+main:    
+    call PRINT_WELCOME
+	mov cx,9    		
 x:   
-        call XOA_MAN_HINH  	; Xóa màn hình để cho giao diện đẹp hơn
-	call PRINT_WELCOME 	; In thông điệp chào mừng
-	call PRINT_MANG    	; In bảng lưới
-	mov bx, cx        	; Di chuyển cx vào bx
-	and bx, 1         	; Kiểm tra số chẵn hoặc lẻ
-	cmp bx, 0        	; So sánh kết quả AND
-	je isEven         	; Nhảy đến isEven nếu kết quả 0 (chẵn)
-	mov PLAYER, 'x'    	; Nếu là số lẻ thì là lượt của người chơi x
-	jmp endif		; Chuyển đến bước tiếp theo
+    call XOA_MAN_HINH  	
+	call PRINT_MANG    	
+	mov bx, cx        	
+	and bx, 1          
+	cmp bx, 0        	
+	je isEven          
+	mov PLAYER, 'x'    	
+	jmp endif		
 isEven:
-	mov PLAYER, 'o'    	; Nếu là số chẵn thì là lượt của người chơi o
+	mov PLAYER, 'o'    	
 endif:
-  NOT_VALID:
-	call IN_DONG_MOI 	; In dòng mới
-	call IN_NHAP	 	; In thông điệp nhập liệu
-	call NHAP   		; Đọc dữ liệu đầu vào, al chứa vị trí trên bảng lưới
-           
-	push cx           	; Đẩy cx vào ngăn xếp
-	mov cx, 9         	; Thiết lập số lượng vòng lặp
-	mov bx, 0         	; Chỉ số để truy cập bảng lưới
+    NOT_VALID:
+	    call IN_DONG_MOI 	
+	    call IN_NHAP	 	
+	    call NHAP   		      
+	    push cx           
+	    mov cx, 9          
+	    mov bx, 0          
 y:
-	cmp MANG[bx], al  	; Kiểm tra vị trí trên bảng lưới với dữ liệu đầu vào
-	je UPDATE         	; Nếu trùng khớp cập nhật vị trí của người chơi(x hoặc o)
-	jmp CONTINUE     	; Tiếp tục nếu không trùng
+	cmp MANG[bx], al  	
+	je UPDATE          
+	jmp CONTINUE     	
 UPDATE:
-	mov dl, PLAYER     	; Di chuyển ng chơi vào dl
-	mov MANG[bx], dl  	; Cập nhật bảng lưới với người chơi
+	mov dl, PLAYER     	
+	mov MANG[bx], dl  	
 CONTINUE:
-	inc bx            	; Tăng chỉ số
-	loop y            	; Lặp đến khi hoàn tất
-	pop cx            	; Lấy giá trị cx ra khỏi ngăn xếp
-	call CHECKWIN     	; Kiểm tra kết quả chơi        
-	loop x                  ; Lặp lại chương trình
-	call PRINT_DRAW      	; Nếu không ai thắng in hòa
+	inc bx            	
+	loop y            	
+	pop cx            	
+	call CHECKWIN     	        
+	loop x                  
+	call PRINT_DRAW       
 programEnd:   
-	mov     ah, 0        	; Thiết lập thanh ghi AH thành giá trị 0
-        int     16h          	
+	mov ax, 4C00h
+    int 21h
+          	
 ret                      		
 	    
-; Các hàm 
-PRINT_MANG:         			; Thủ tục in bảng lưới
-	push cx           		; Đẩy cx vào ngăn xếp
-	mov bx,0         		; Thiết lập chỉ số ban đầu
-	mov cx,3          		; Số dòng của bảng lưới
+PRINT_MANG:
+    lea dx, WELCOME
+    mov ah, 9
+    int 21h         			
+	push cx           
+	mov bx,0         		
+	mov cx,3          		
 	x1:
-                call IN_DONG_MOI 	; In dòng mới
-                push cx          	; Đẩy cx vào ngăn xếp
-                mov cx, 3       	; Số cột của bảng lưới
+        call IN_DONG_MOI 	
+        push cx          	
+        mov cx, 3       	
 	x2:
-	mov dl, MANG[bx] 		; Di chuyển giá trị grid vào dl
-	mov ah, 2h   			; Câu lệnh in ký tự
-	int 21h       
-	call PRINT_Space 		; Gọi hàm in khoảng trắng
-	inc bx       			; Tăng chỉ số
-	loop x2          		; Lặp lại qua các cột
-	pop cx          		; Lấy lại giá trị cx
-	loop x1              		; Lặp lai qua cac dòng
-	pop cx               		; Lấy lại giá trị cx
-	call IN_DONG_MOI    		; In dòng mới 
+	    mov dl, MANG[bx] 		
+	    mov ah, 2h   			
+	    int 21h       
+	    call PRINT_Space 		
+	    inc bx       			
+	    loop x2          		
+	    pop cx          		
+	    loop x1              		
+	    pop cx               		
+	    call IN_DONG_MOI    		
 ret                      					
         
-IN_DONG_MOI:            		; Thủ tục in dòng mới
-	mov dl, 0ah     		; Kí tự xuống dòng
-	mov ah, 2       		; Câu lệnh in kí tự
-	int 21h         		; Gọi ngắt để in kí tự
+IN_DONG_MOI:            		
+	mov dl, 0ah     		
+	mov ah, 2       		
+	int 21h         		
 	mov dl, 13          		 		
-	mov ah, 2       		; Câu lệnh in kí tự
-	int 21h         		; Gọi ngắt để in kí tự
+	mov ah, 2       		
+	int 21h         		
 ret                     			 		
         
-PRINT_Space:            		; Thủ tục in khoảng trắng
-	mov dl, 32          		; Mã ascii của khoảng trắng
-	mov ah, 2            		; Câu lệnh in kí tự
-	int 21h              		; Gọi ngắt để in kí tự
+PRINT_Space:            		
+	mov dl, 32          		
+	mov ah, 2            		
+	int 21h              		
 ret       
               		 			
-NHAP:  				        ; Thủ tục đọc dữ liệu đầu vào
+NHAP:  				        
 
-	mov ah, 1        		; Cho phép nhập kí tự
-	int 21h               	 	; Gọi ngắt để nhập dữ liệu
-	cmp al, '1'                     ; Kiểm tra giá trị nhập vào
+	mov ah, 1        		
+	int 21h               	 	
+	cmp al, '1'                     
 	je VALID
 	cmp al, '2'
 	je VALID
@@ -119,200 +119,184 @@ NHAP:  				        ; Thủ tục đọc dữ liệu đầu vào
 	je VALID
 	cmp al, '9'
 	je VALID
-	jmp NOT_VALID                   ; Quay lại vị trí không hợp lệ
-	VALID:                          ; Điểm hợp lệ
+	jmp NOT_VALID                   
+	VALID:                          
 ret                       					
         
-PRINT_WELCOME:          	 	; Thủ tục in thông điệp chào mừng
-	MOV AH, 2 
-            MOV BH, 0 ; chuyển giá trị 0 vào thanh ghi BH, giá trị 0 có nghĩa là chúng ta đang làm việc với màn hình đầu tiên
-            MOV DH, 6 ; chuyển giá trị 6 vào thanh ghi DH, 6 có nghĩa là dòng 6 của màn hình
-            MOV DL, 14 ; chuyển giá trị 14 vào thanh ghi DL, 14 có nghĩa là dòng 14 của màn hình
-            INT 10H ; dùng để gọi các chức năng hiển thị màn hình để thao tác, INT 10H với AH=2 là thao tác con trỏ màn hình
-            
-        LEA DX, T1 ;đưa chuỗi T1 vào thanh ghi DX để chuẩn bị hiển thị
-        MOV AH, 9
-        INT 21H ; INT 21H với AH=9 là thao tác in chuỗi
-
-            ; từ đoạn này
-            MOV AH, 2
-            MOV DH, 7
-            MOV DL, 14
-            INT 10H 
-            
-           
-        
-        LEA DX, T2
-        MOV AH, 9
-        INT 21H
-                         
-                          
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 8
-            MOV DL, 14
-            INT 10H 
-           
-        
-        LEA DX, T3
-        MOV AH, 9
-        INT 21H
-                
-
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 9
-            MOV DL, 14
-            INT 10H  
-              
-        
-        LEA DX, T2
-        MOV AH, 9
-        INT 21H
-
-            ; SET CURSOR 
-            MOV AH, 2
-            MOV DH, 10
-            MOV DL, 14
-            INT 10H 
-        
-	
-        LEA DX, T4
-        MOV AH, 9
-        INT 21H 
-
-	; SET CURSOR
-            MOV AH, 2
-            MOV DH, 13
-            MOV DL, 24
-            INT 10H 
-	
-	LEA DX, PAK  ; PRESS ANY KEY
-        MOV AH, 9
-        INT 21H
-        ;đến đoạn này tương tự
-
-        MOV AH, 7    ; AH=7 INT21H là dùng để nhập ký tự( để nhập sau dòng pres any key to continue)
-        INT 21H
-	
-	MOV AX,0600H ;06 là hàm scroll up thường dùng để xoá màn hình 00 là tham số bổ sung
-        MOV BH,07H ; BH chỉ định thuộc tính màu, 07H là thuộc tính màu chuẩn: trắng đen
-        MOV CX,0000H ; CX dùng để xác định toạ độ bắt đầu vùng cần xoá, 0000H là góc trên bên trái dòng 0 cột 0
-        MOV DX,184FH ; DX là toạ độ cuối cùng cần xoá 18H là dòng 24,4FH là cột 79( tiêu chuẩn màn hình là 80x25)
-        INT 10H 
-	
-MOV AH, 2 ; chuyển giá trị 2 vào thanh ghi AH, 2 là chế độ đặt con trỏ màn hình( thay đổi giá trị khác là chế độ khác)
-            MOV BH, 0 ; chuyển giá trị 0 vào thanh ghi BH, giá trị 0 có nghĩa là chúng ta đang làm việc với màn hình đầu tiên
-            MOV DH, 0 ; chuyển giá trị 6 vào thanh ghi DH, 6 có nghĩa là dòng 6 của màn hình
-            MOV DL, 0 ; chuyển giá trị 14 vào thanh ghi DL, 14 có nghĩa là dòng 14 của màn hình
-            INT 10H ; dùng để gọi các chức năng hiển thị màn hình để thao tác, INT 10H với AH=2 là thao tác con trỏ màn hình
-
-lea dx, WELCOME   		; Tải địa chỉ của thông điệp vào dx
-	mov ah, 9            		; Câu lệnh in chuỗi
-	int 21h             		; Gọi ngắt để in chuỗi
-
+PRINT_WELCOME:          	 	
+	mov ah, 2
+    mov bh, 0
+    mov dh, 6
+    mov dl, 14
+    int 10h 
+    
+    lea dx, T1
+    mov ah, 9
+    int 21h 
+    
+    mov ah, 2
+    mov dh, 7
+    mov dl, 14
+    int 10h  
+    
+    lea dx, T2
+    mov ah, 9
+    int 21h  
+    
+    mov ah, 2
+    mov dh, 8
+    mov dl, 14
+    int 10h 
+    
+    lea dx, T3
+    mov ah, 9
+    int 21h
+    
+    mov ah, 2
+    mov dh, 9
+    mov dl, 14
+    int 10h
+    
+    lea dx, T2
+    mov ah, 9
+    int 21h
+    
+    mov ah, 2
+    mov dh, 10
+    mov dl, 14
+    int 10h
+    
+    lea dx, T4
+    mov ah, 9
+    int 21h
+    
+    mov ah, 2
+    mov dh, 13
+    mov dl, 24
+    int 10h
+    
+    lea dx, PAK
+    mov ah, 9
+    int 21h
+    mov ah, 7
+    int 21h
+    
+    mov ax,0600h
+    mov bh,07h
+    mov cx,0000h
+    mov dx,184fh
+    int 10h
+    
+    mov ah, 2
+    mov bh, 0
+    mov dh, 0
+    mov dl, 0
+    int 10h
+    
+    lea dx, WELCOME
+    mov ah, 9
+    int 21h         		
 ret                       					
         
-PRINT_DRAW:                  		; Thủ tục in thông điệp hoa
-	call IN_DONG_MOI       		; In dòng mới
-	lea dx, DRAW            	; Tải địa chỉ thông điệp
-	mov ah, 9                	; Câu lệnh in chuỗi
-	int 21h                   	; Gọi ngắt để in chuỗi
+PRINT_DRAW:                  		
+	call IN_DONG_MOI       		
+	lea dx, DRAW            	
+	mov ah, 9                	
+	int 21h                   	
 ret                         		 			
         
-PRINT_WIN:                     		; Thủ tục in thông điệp chiến thắng
-	call IN_DONG_MOI       	 	; In dòng mới
-	call PRINT_MANG           	; In bảng lưới lần cuối
-	lea dx, WIN               	; Tải địa chỉ thông điệp
-	mov ah, 9                 	; Câu lệnh in chuỗi
-	int 21h                    	; Gọi ngắt để in chuỗi
-	mov dl, PLAYER            	; Di chuyển giá trị người chơi vào dl
-	mov ah, 2h                 	; Câu lệnh in kí tự
-	int 21h                    	; Gọi ngắt để in kí tự
-	jmp programEnd            	; Quay lại kết thúc chương trình
+PRINT_WIN:                     		
+	call IN_DONG_MOI       	 	
+	call PRINT_MANG           	
+	lea dx, WIN               	
+	mov ah, 9                 	
+	int 21h                    	
+	mov dl, PLAYER            	
+	mov ah, 2h                 	
+	int 21h                    	
+	jmp programEnd            	
 ret                            				
         
-IN_NHAP:                 		; Thủ tục in thông điệp nhập liệu
-	lea dx, INPUT            	; Tải địa chỉ thông điệp
-	mov ah, 9                   	; Câu lệnh in chuỗi
-	int 21h                       	; Gọi ngắt để in chuỗi
-	mov dl, PLAYER               	; Di chuyển giá trị người chơi vào dl
-	mov ah, 2h                     	; Câu lệnh in kí tự
-	int 21h                       	; Gọi ngắt để in kí tự
-	call PRINT_Space                ; Gọi thủ tục in khoảng trắng
+IN_NHAP:                 		
+	lea dx, INPUT            	
+	mov ah, 9                   	
+	int 21h                       	
+	mov dl, PLAYER               	
+	mov ah, 2h                     	
+	int 21h                       	
+	call PRINT_Space                
 ret                                				
         
-CHECKWIN:                      		; Thủ tục kiểm tra kết quả
-	mov bl, MANG[0]                 ; Kiểm tra hàng 0
-	cmp bl, MANG[1]          	; So sánh giá trị đầu tiên và thứ 2
-	jne skip1                	; Nếu không giống nhau bỏ qua
-	cmp bl, MANG[2]          	; So sánh giá trị đầu tiên và thứ 3
-	jne skip1                	; Nếu không giống nhau bỏ qua
-	call PRINT_WIN           	; Nếu giống nhau in thông điệp chiến thắng
+CHECKWIN:                      		
+	mov bl, MANG[0]                 
+	cmp bl, MANG[1]          	
+	jne skip1                	
+	cmp bl, MANG[2]          	
+	jne skip1                	
+	call PRINT_WIN            	
 
-skip1:                           	; Vị trí bỏ qua
-	mov bl, MANG[3]          	; Kiểm tra hàng 1
-	cmp bl, MANG[4]          	; So sánh giá trị đầu tiên và thứ 2 của hàng 1
-	jne skip2                	; Nếu không giống nhau bỏ qua
-	cmp bl, MANG[5]          	; So sánh giá trị đầu tiên và thứ 3 của hàng 1
-	jne skip2                	; Nếu không giống nhau bỏ qua
-	call PRINT_WIN           	; Nếu giống nhau in thông điệp chiến thắng
+skip1:                            
+	mov bl, MANG[3]          	
+	cmp bl, MANG[4]          	
+	jne skip2                	
+	cmp bl, MANG[5]          	
+	jne skip2                	
+	call PRINT_WIN            	
 
-skip2:                           	; Vị trí bỏ qua
-	mov bl, MANG[6]          	; Kiểm tra hàng 2
-	cmp bl, MANG[7]          	; So sánh giá trị đầu tiên và thứ 2 của hàng 2
-	jne skip3                	; Nếu không giống nhau bỏ qua
-	cmp bl, MANG[8]          	; So sánh giá trị đầu tiên và thứ 3 của hàng 2
-	jne skip3                	; Nếu không giống nhau bỏ qua
-	call PRINT_WIN           	; Nếu giống nhau in thông điệp chiến thắng
+skip2:                            
+	mov bl, MANG[6]          	
+	cmp bl, MANG[7]          	
+	jne skip3                	
+	cmp bl, MANG[8]          	
+	jne skip3                	
+	call PRINT_WIN            
 
-skip3:                           	; Vị trí bỏ qua
-	mov bl, MANG[0]          	; Kiểm tra cột 0
-	cmp bl, MANG[3]          	; So sánh vị trí đầu tiên và thứ 2 của cột 0
-	jne skip4                	; Nếu không giống nhau bỏ qua
-	cmp bl, MANG[6]          	; So sánh vị trí đầu tiên và thứ 3 của cột 0
-	jne skip4               	; Nếu không giống nhau bỏ qua
-	call PRINT_WIN           	; Nếu giống nhau in thông điệp chiến thắng
+skip3:                            
+	mov bl, MANG[0]          	
+	cmp bl, MANG[3]          	
+	jne skip4                	
+	cmp bl, MANG[6]          	
+	jne skip4               	
+	call PRINT_WIN            
 
-skip4:                           	; Vị trí bỏ qua
-	mov bl, MANG[1]          	; Kiểm tra cột 1
-	cmp bl, MANG[4]          	; So sánh vị trí đầu tiên và thứ 2 của cột 1
-	jne skip5                	; Nếu không giống nhau bỏ qua
-	cmp bl, MANG[7]          	; So sánh vị trí đầu tiên và thứ 3 của cột 1
-	jne skip5                	; Nếu không giống nhau bỏ qua
-	call PRINT_WIN           	; Nếu giống nhau in thông điệp chiến thắng
+skip4:                            
+	mov bl, MANG[1]          	
+	cmp bl, MANG[4]          	
+	jne skip5                	
+	cmp bl, MANG[7]          	
+	jne skip5                	
+	call PRINT_WIN            
 
-skip5:                           	; Vị trí bỏ qua    
-	mov bl, MANG[2]          	; Kiểm tra cột 2
-	cmp bl, MANG[5]          	; So sánh vị trí đầu tiên và thứ 2 của cột 2
-	jne skip6                	; Nếu không giống nhau bỏ qua
-	cmp bl, MANG[8]          	; So sánh vị trí đầu tiên và thứ 3 của cột 2
-	jne skip6                	; Nếu không giống nhau bỏ qua
-	call PRINT_WIN           	; Nếu giống nhau in thông điệp chiến thắng
+skip5:                                
+	mov bl, MANG[2]          	
+	cmp bl, MANG[5]          	
+	jne skip6                	
+	cmp bl, MANG[8]          	
+	jne skip6                	
+	call PRINT_WIN            	
 
+skip6:                            
+    mov bl, MANG[0]      	
+    cmp bl, MANG[4]      	
+    jne skip7            	
+    cmp bl, MANG[8]      	
+    jne skip7            	
+    call PRINT_WIN        
 
-skip6:                           	; Vị trí bỏ qua
-            
-            mov bl, MANG[0]      	; Kiểm tra đường chéo chính
-            cmp bl, MANG[4]      	; So sánh giá trị đầu tiên và thứ 2 của đường chéo chính
-            jne skip7            	; Nếu không giống nhau bỏ qua
-            cmp bl, MANG[8]      	; So sánh giá trị đầu tiên và thứ 3 của đường chéo chính
-            jne skip7            	; Nếu không giống nhau bỏ qua
-            call PRINT_WIN       	; Nếu giống nhau in thông điệp chiến thắng
+skip7:               		 	
+	mov bl, MANG[2]          	
+	cmp bl, MANG[4]          	
+	jne skip8                	
+	cmp bl, MANG[6]          	
+	jne skip8                	
+	call PRINT_WIN            
 
-skip7:               		 	; Vị trí bỏ qua
-	mov bl, MANG[2]          	; Kiểm tra đường chéo phụ
-	cmp bl, MANG[4]          	; So sánh giá trị đầu tiên và thứ 2 của đường chéo phụ
-	jne skip8                	; Nếu không giống nhau bỏ qua 
-	cmp bl, MANG[6]          	; So sánh giá trị đầu tiên và thứ 3 của đường chéo phụ
-	jne skip8                	; Nếu không giống nhau bỏ qua
-	call PRINT_WIN          	; Nếu giống nhau in thông điệp chiến thắng
-
-skip8:                           	; Vị trí bỏ qua
-ret                                                                 	 
+skip8:                            
+    ret                                                                 	 
         
-XOA_MAN_HINH:                    	; Thủ tục xóa màn hình
-	mov ax, 3                	; Xóa màn hình
-	int 10h                  	; Gọi ngắt
-ret                                                            	
-end main                         	; Kết thúc chương trình
+XOA_MAN_HINH:                    	
+	mov ax, 3                	
+	int 10h                  	
+ret   
+                                                         	
+end main                         
